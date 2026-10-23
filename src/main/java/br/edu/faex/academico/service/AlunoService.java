@@ -84,10 +84,11 @@ public class AlunoService {
             System.out.println("E-mail inválido.");
             return;
         }
-        if (repository.listar().stream()
-                .anyMatch(a -> a.getEmail().equalsIgnoreCase(alunoEditado.getEmail())
-                        && !a.getId().equals(alunoEditado.getId()))) {
+        boolean emailDeOutroAluno = repository.listar().stream()
+            .anyMatch(a -> !a.getId().equals(alunoEditado.getId())
+                    && a.getEmail().equalsIgnoreCase(alunoEditado.getEmail()));
 
+        if (emailDeOutroAluno) {
             System.out.println("E-mail já cadastrado.");
             return;
         }
